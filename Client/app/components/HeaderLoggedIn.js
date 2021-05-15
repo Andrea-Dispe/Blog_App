@@ -1,12 +1,13 @@
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const HeaderLoggedIn = (props) => {
   function handleClick() {
     props.setLoggedIn(false);
-    localStorage.clear()
-    localStorage.removeItem('token')
-    localStorage.removeItem('username')
-    localStorage.removeItem('avatar')
+    localStorage.clear();
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("avatar");
   }
 
   return (
@@ -19,11 +20,14 @@ const HeaderLoggedIn = (props) => {
         <span className="chat-count-badge text-white"> </span>
       </span>
       <a href="#" className="mr-2">
-        <img className="small-header-avatar" src={localStorage.getItem('avatar')} />
+        <img
+          className="small-header-avatar"
+          src={localStorage.getItem("avatar")}
+        />
       </a>
-      <a className="btn btn-sm btn-success mr-2" href="/create-post">
+      <Link className="btn btn-sm btn-success mr-2" to="/create-post">
         Create Post
-      </a>
+      </Link>
       <button className="btn btn-sm btn-secondary" onClick={handleClick}>
         Sign Out
       </button>
