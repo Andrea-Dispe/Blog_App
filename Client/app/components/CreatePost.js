@@ -1,23 +1,25 @@
-import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
-import Page from "./Page";
-import Axios from "axios";
+import React, { useState, useEffect, useContext } from 'react';
+import { withRouter } from 'react-router-dom';
+import Page from './Page';
+import Axios from 'axios';
+import ExampleContext from '../ExampleContext';
 
-const CreatePost = () => {
+const CreatePost = (props) => {
   const [title, setTitle] = useState();
   const [body, setBody] = useState();
+  const { addFlashMessage } = useContext(ExampleContext);
 
   async function handleSUbmit(e) {
     e.preventDefault();
     try {
-      await Axios.post(`/create-post`, {
+      const response = await Axios.post(`/create-post`, {
         title,
         body,
-        token: localStorage.getItem("token"),
-      });
+        token: localStorage.getItem('token'),
+      });   
       // Redirect to the new post url
-
-      console.log("new post was created");
+      addFlashMessage('New post was created!!');
+      props.history.push(`/post/${response.data}`);
     } catch (error) {
       console.error(error);
     }
@@ -65,4 +67,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default withRouter(CreatePost);
