@@ -21,28 +21,19 @@ function Main() {
     loggedIn: Boolean(localStorage.getItem('token')),
     flashMessages: []
   };
+  
   function ourReducer(state, action) {
     switch (action.type) {
-      case 'Login':
+      case 'login':
         return {loggedIn: true, flashMessages: state.flashMessages}
-      case 'LogOut':
-        return x;
+      case 'logout':
+        return {loggedIn: true, flashMessages: state.flashMessages}
       case 'AddFlashMessage':
-        return x;
+        return {loggedIn: state.loggedIn, flashMessages: state.flashMessages}
     }
   }
-
   const [state, dispatch] = userReducer(ourReducer, initialState);
 
-  // check if localstorage has the token and convert it to true so to render the header logged in
-  const [loggedIn, setLoggedIn] = useState(Boolean(localStorage.getItem('token')));
-  const [flashMessages, setFlashMessages] = useState([]);
-
-  function addFlashMessage(msg) {
-    setFlashMessages((prev) => prev.concat(msg));
-  }
-
-  return (
     <ExampleContext.Provider
       value={{
         addFlashMessage,
