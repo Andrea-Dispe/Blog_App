@@ -2,12 +2,15 @@ import React, { useState, useEffect, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 import Page from './Page';
 import Axios from 'axios';
-import ExampleContext from '../ExampleContext';
+import DispatchContext from '../DispatchContext';
+import StateContext from '../StateContext';
 
 const CreatePost = (props) => {
   const [title, setTitle] = useState();
   const [body, setBody] = useState();
-  const { addFlashMessage } = useContext(ExampleContext);
+
+  const appDispatch = useContext(DispatchContext);
+  const appState = useContext(StateContext);
 
   async function handleSUbmit(e) {
     e.preventDefault();
@@ -15,16 +18,17 @@ const CreatePost = (props) => {
       const response = await Axios.post(`/create-post`, {
         title,
         body,
-        token: localStorage.getItem('token'),
-      });   
+        token: appState.user.token,
+      });
       // Redirect to the new post url
-      addFlashMessage('New post was created!!');
+      console.log('responde from the server for succeded post submission', response.data);
+      appDispatch({ type: 'AddFlashMessage', value: 'Congratulations, you have created a post' });
       props.history.push(`/post/${response.data}`);
     } catch (error) {
       console.error(error);
     }
   }
-
+ 
   return (
     <Page>
       <form onSubmit={handleSUbmit}>

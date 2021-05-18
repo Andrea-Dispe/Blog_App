@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext} from 'react';
 import Axios from 'axios';
-import ExampleContext from '../ExampleContext'
+import DispatchContext from '../DispatchContext'
+import StateContext from '../StateContext'
 
 const HeaderLoggedOut = () => {
-  const {setLoggedIn} = useContext(ExampleContext)
+  const appDispatch = useContext(DispatchContext)
 
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
@@ -17,11 +18,10 @@ const HeaderLoggedOut = () => {
       });
       if (response.data) {
         console.log(response.data);
-        setLoggedIn(true);
-        localStorage.setItem('username', response.data.username);
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('avatar', response.data.avatar);
+        appDispatch({type: 'login', data: response.data})
+
       } else {
+        appDispatch({type: 'AddFlashMessage', value: 'Sorry, username or password are incorrect. \n Try Again'})
         console.log('incorrect username or password');
       }
     } catch (error) {

@@ -1,18 +1,15 @@
-import React, {useContext} from "react";
-import { Link } from "react-router-dom";
-import ExampleContext from '../ExampleContext'
-
-
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import StateContext from '../StateContext';
+import DispatchContext from '../DispatchContext';
 
 const HeaderLoggedIn = () => {
-const {setLoggedIn} = useContext(ExampleContext)
+  const appDispatch = useContext(DispatchContext);
+  const appState = useContext(StateContext);
 
   function handleClick() {
-    setLoggedIn(false);
-    localStorage.clear();
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
-    localStorage.removeItem("avatar");
+    appDispatch({ type: 'logout' });
+
   }
 
   return (
@@ -24,12 +21,9 @@ const {setLoggedIn} = useContext(ExampleContext)
         <i className="fas fa- comment"></i>
         <span className="chat-count-badge text-white"> </span>
       </span>
-      <a href="#" className="mr-2">
-        <img
-          className="small-header-avatar"
-          src={localStorage.getItem("avatar")}
-        />
-      </a>
+      <Link to={`/profile/${appState.user.username}`} className="mr-2">
+        <img className="small-header-avatar" src={appState.user.avatar} />
+      </Link>
       <Link className="btn btn-sm btn-success mr-2" to="/create-post">
         Create Post
       </Link>
