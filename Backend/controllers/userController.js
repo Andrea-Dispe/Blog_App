@@ -9,6 +9,7 @@ const tokenLasts = "365d"
 exports.apiGetPostsByUsername = async function (req, res) {
   try {
     let authorDoc = await User.findByUsername(req.params.username)
+    console.log(authorDoc)
     let posts = await Post.findByAuthorId(authorDoc._id)
     //res.header("Cache-Control", "max-age=10").json(posts)
     res.json(posts)
