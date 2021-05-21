@@ -20,18 +20,29 @@ const Profile = () => {
   const appState = useContext(StateContext);
 
   useEffect(() => {
+    const ourRequest = Axios.CancelToken.source();
+
     async function fetchData() {
       try {
-        const response = await Axios.post(`/profile/${username}`, {
-          token: appState.user.token,
-        });
+        const response = await Axios.post(
+          `/profile/${username}`,
+          {
+            token: appState.user.token,
+          },
+          {
+            cancelToken: ourRequest.token,
+          }
+        );
         console.log('response from profile request ', response.data);
         setProfileData(response.data);
       } catch (error) {
-        console.error(error);
+        console.error('There was a problem or the request has been cancelled', error);
       }
     }
     fetchData();
+    return () => {
+      ourRequest.cancel();
+    };
   }, []);
 
   return (
@@ -54,7 +65,7 @@ const Profile = () => {
           Following: {profileData.counts.followingCount}
         </a>
       </div>
-      
+
       <ProfilePosts />
     </Page>
   );
