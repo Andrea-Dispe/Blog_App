@@ -5,7 +5,7 @@ import { useImmerReducer } from 'use-immer';
 import Axios from 'axios';
 
 Axios.defaults.baseURL = 'http://localhost:4000';
- 
+
 import StateContext from './StateContext';
 import DispatchContext from './DispatchContext';
 
@@ -20,6 +20,7 @@ import CreatePost from './components/CreatePost';
 import ViewSinglePost from './components/ViewSinglePost';
 import FlashMessages from './components/FlashMessages';
 import Profile from './components/Profile';
+import EditPost from './components/EditPost';
 
 function Main() {
   const initialState = {
@@ -46,6 +47,7 @@ function Main() {
         return;
     }
   }
+  
   const [state, dispatch] = useImmerReducer(ourReducer, initialState);
 
   useEffect(() => {
@@ -75,8 +77,11 @@ function Main() {
             <Route path="/profile/:username">
               <Profile />
             </Route>
-            <Route path="/post/:id">
+            <Route path="/post/:id" exact>
               <ViewSinglePost />{' '}
+            </Route>
+            <Route path="/post/:id/edit" exact>
+              <EditPost />
             </Route>
             <Route path="/create-post">
               <CreatePost />

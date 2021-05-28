@@ -28,9 +28,9 @@ const CreatePost = (props) => {
       console.error(error);
     }
   }
- 
+
   return (
-    <Page>
+    <Page title="Create New Post">
       <form onSubmit={handleSUbmit}>
         <div className="form-group">
           <label htmlFor="post-title" className="text-muted mb-1">

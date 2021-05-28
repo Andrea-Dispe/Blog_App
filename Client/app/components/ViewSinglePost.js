@@ -26,7 +26,6 @@ const ViewSinglePost = () => {
         setIsLoading(false);
       } catch (error) {
         console.error('There was a problem or the request has been cancelled', error);
-
       }
     }
     fetchPost();
@@ -51,19 +50,14 @@ const ViewSinglePost = () => {
         <h2>{post.title}</h2>
         <span className="pt-2">
 
-
-
-          <a data-tip="Edit post" data-for="edit" href="#" className="text-primary mr-2" title="Edit">
-            <i className="fas fa-edit"></i>avatar
-          </a>
-          <ReactTooltip id="edit" className="custom-tooltip" />
-
-
-
-
-          <a className="delete-post-button text-danger" title="Delete">
+          <Link data-tip="Edit post" data-for="edit" to={`${id}/edit`} className="text-primary mr-2">
+            <i className="fas fa-edit"></i>Edit
+          </Link>
+          <ReactTooltip id="edit" className="custom-tooltip" />{" "}
+          <a data-tip="Remove Post" data-for="remove" className="delete-post-button text-danger">
             <i className="fas fa-trash"></i>
           </a>
+          <ReactTooltip id="remove" className="custom-tooltip" />
         </span>
       </div>
 
