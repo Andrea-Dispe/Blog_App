@@ -6,7 +6,7 @@ It is a blog app where users can register with email, username and password, log
 
 It is composed by a frontend and a backend.
 
-
+![My blog app presentation gif](presentation.gif)
 
 #### Tech stack (Front-end):
 
