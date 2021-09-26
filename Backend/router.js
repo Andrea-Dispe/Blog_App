@@ -6,14 +6,13 @@ const cors = require("cors")
 
 apiRouter.use(cors())
 
-apiRouter.get("/", (req, res) => res.json("Hello, if you see this message that means your backend is up and running successfully. Congrats! Now let's continue learning React!"))
+apiRouter.get("/", (req, res) => res.json("Backend is running ok"))
 
 // check token to log out front-end if expired
 apiRouter.post("/checkToken", userController.checkToken)
 
 apiRouter.post("/getHomeFeed", userController.apiMustBeLoggedIn, userController.apiGetHomeFeed)
 apiRouter.post("/de",  userController.de)
-apiRouter.post("/dess",  (req, res)=> {res.send('sssssss')})
 apiRouter.post("/register", userController.apiRegister)
 apiRouter.post("/login", userController.apiLogin)
 apiRouter.get("/post/:id", postController.reactApiViewSingle)
